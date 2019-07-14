@@ -1,0 +1,44 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="display-4">Welcome</h1>
+                    <p class="lead">
+                        Eagle Financial Services | Your Midwest Financial Service Partner
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Customer Information</h2><br>
+                    {% for customer in customer_list %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>{{ customer.name }}</h4>
+                            <h6 class="accent-color">{{ customer.email }} | {{ customer.cell_phone }}</h6>
+                            <p class="card-text">{{ customer.address }}, {{ customer.city }}, 
+                                {{ customer.state }} - {{ customer.zipcode }}
+                            </p>
+                            <p class="text-right">
+                                <a href="{% url 'portfolio:customer_edit' pk=customer.pk %}">
+                                    <i class="fas fa-pen-square" title="Edit"></i>
+                                </a>
+                                <i class="fas fa-file-alt" title="Portfolio"></i>
+                                <a href="{% url 'portfolio:customer_delete' pk=customer.pk %}" 
+                                    onclick="return confirm('Are you sure you want to delete?')">
+                                    <i class="fas fa-trash" title="Delete"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
