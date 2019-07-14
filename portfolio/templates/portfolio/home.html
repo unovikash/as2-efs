@@ -1,0 +1,60 @@
+{% extends 'portfolio/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="page-container">
+        <h2 class="top-menu">Hello {{ user.username }},</h2>
+        <p>Please choose from below options.</p>
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-3">
+        <div class="thumbnail">
+            <img src="{% static 'images/customer.jpg' %}" alt="Customers"/>
+            <div class="caption">
+                <h2>Customer</h2>
+                <p>We see our success in our customers success, it gives us an immense pleasure when 
+                    our advises turn out to be fruitful. 
+                </p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'portfolio:customer_list' %}"
+                          role="button">View
+                        details &raquo;
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="thumbnail">
+            <img src="{% static 'images/nonstock.jpg' %}" alt="Non-Stock Investments"/>
+            <div class="caption">
+                <h2>Non-Stock Investments</h2>
+                <p>Our team also provides advises for Non-Stock investments.</p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'portfolio:customer_list' %}"
+                          role="button">View details &raquo;
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="thumbnail">
+            <img src="{% static 'images/stocks.jpg' %}" alt="Stocks"/>
+            <div class="caption">
+                <h2>Stocks</h2>
+                <p>Our Stock portfolios vary across industries.</p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'portfolio:customer_list' %}"
+                            role="button">View details &raquo;
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
