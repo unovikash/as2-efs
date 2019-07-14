@@ -1,0 +1,47 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-9">
+                        <h2>Stock Information</h2>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'portfolio:stock_new' %}">
+                            <span class="btn btn-primary mr-auto">Add New</span>
+                        </a>
+                    </div>
+                </div>
+                {% for stock in stock_list %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{ stock.customer }}</h4>
+                        <h6 class="accent-color">{{ stock.name }} ({{ stock.symbol }})</h6>
+                        <p class="card-text">
+                            Shares - <strong>{{ stock.shares }}</strong>
+                            <br/>Purchase Price - <strong>${{ stock.purchase_price }}</strong>
+                            <br/>Purchase Date - <strong>{{ stock.purchase_date }}</strong>
+                        </p>
+                        
+                        <p class="text-right">
+                            <a href="{% url 'portfolio:stock_edit' pk=stock.pk %}">
+                                <i class="fas fa-pen-square" title="Edit"></i>
+                            </a>
+                            <a href="{% url 'portfolio:stock_delete' pk=stock.pk %}" 
+                                onclick="return confirm('Are you sure you want to delete?')">
+                                <i class="fas fa-trash" title="Delete"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

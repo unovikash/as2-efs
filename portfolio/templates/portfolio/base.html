@@ -29,10 +29,10 @@
                     <a class="nav-link" href="{% url 'portfolio:customer_list' %}">Customers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portfolio:customer_list' %}">Investments</a>
+                    <a class="nav-link" href="{% url 'portfolio:investment_list' %}">Investments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'portfolio:customer_list' %}">Stocks</a>
+                    <a class="nav-link" href="{% url 'portfolio:stock_list' %}">Stocks</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -55,6 +55,7 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <br/>
     <div class="row">
         <div class="col-12">
             {% block content %}

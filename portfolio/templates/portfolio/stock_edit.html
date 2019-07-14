@@ -4,8 +4,8 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-6">
-        <h2>Add/Update Customer</h2>
-        <form method="POST" class="customer-form">
+        <h2>Add/Update Stock</h2>
+        <form method="POST" class="stock-form">
             {% csrf_token %}
             {{ form|crispy }}
             <button type="submit" class="save btn btn-default">Save</button>
