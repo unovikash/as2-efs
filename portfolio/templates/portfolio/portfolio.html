@@ -1,0 +1,70 @@
+{% extends 'portfolio/base.html' %}
+{% load humanize %}
+{% load mathfilters %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h1>Customer Portfolio</h1>
+        <p>Name: {{customer.name}}</p>
+        <p>Email: {{ customer.email }}</p>
+
+        <!-- Stock Information -->
+        <h2>Stock Information</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Shares</th>
+                    <th scope="col">Initial Stock Price</th>
+                    <th scope="col">Initial Stock Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stock_list %}
+                <tr>
+                    <th scope="row">{{ stock.symbol }}</th>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.shares|intcomma }}</td>
+                    <td>${{ stock.purchase_price|intcomma }}</td>
+                    <td>{{ stock.purchase_value|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Investment Information -->
+        <h2>Investment Information</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Shares</th>
+                    <th scope="col">Initial Stock Price</th>
+                    <th scope="col">Initial Stock Value</th>
+                    <th scope="col">Current Stock Price</th>
+                    <th scope="col">Current Stock Value</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stock_list %}
+                <tr>
+                    <th scope="row">{{ stock.symbol }}</th>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.shares|intcomma }}</td>
+                    <td>${{ stock.purchase_price|intcomma }}</td>
+                    <td>{{ stock.initial_stock_value|intcomma }}</td>
+                    <td>${{ stock.current_stock_price|intcomma }}</td>
+                    <td>{{ stock.current_stock_value|intcomma }}</td>
+                    <td>{{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

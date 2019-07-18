@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.db.models import Sum
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomerSerializer
+
 from .models import Customer, Stock, Investment
 from .forms import CustomerForm, StockForm, InvestmentForm
 
@@ -175,3 +182,38 @@ def investment_delete(request, pk):
     investment = get_object_or_404(Investment, pk=pk)
     investment.delete()
     return redirect('portfolio:investment_list')
+
+@login_required
+def customer_portfolio(request,pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    customer_list = Customer.objects.filter(created_date__lte=timezone.now())
+    investment_list =Investment.objects.filter(customer=pk)
+    stock_list = Stock.objects.filter(customer=pk)
+    sum_recent_value = Investment.objects.filter(customer=pk).aggregate(Sum('recent_value'))
+    sum_acquired_value = Investment.objects.filter(customer=pk).aggregate(Sum('acquired_value'))
+    #overall_investment_results = sum_recent_value-sum_acquired_value
+    # Initialize the value of the stocks
+    sum_current_stock_value = 0
+    sum_initial_stock_value = 0
+
+    # Loop through each stock and add the value to the total
+    for stock in stock_list:
+        sum_current_stock_value += stock.current_stock_value()
+        sum_initial_stock_value += stock.initial_stock_value()
+
+    return render(request, 'portfolio/portfolio.html', {
+        'customer': customer,
+        'customer_list': customer_list,
+        'investment_list': investment_list,
+        'stock_list': stock_list,
+        'sum_acquired_value': sum_acquired_value,
+        'sum_recent_value': sum_recent_value,
+        'sum_current_stocks_value': sum_current_stock_value,
+        'sum_of_initial_stock_value': sum_initial_stock_value,
+        })
+
+class CustomerList(APIView):
+    def get(self,request):
+        customers_json = Customer.objects.all()
+        serializer = CustomerSerializer(customers_json, many=True)
+        return Response(serializer.data)

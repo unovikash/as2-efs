@@ -30,7 +30,9 @@
                                 <a href="{% url 'portfolio:customer_edit' pk=customer.pk %}">
                                     <i class="fas fa-pen-square" title="Edit"></i>
                                 </a>
-                                <i class="fas fa-file-alt" title="Portfolio"></i>
+                                <a href="{% url 'portfolio:customer_portfolio' pk=customer.pk %}">
+                                    <i class="fas fa-file-alt" title="Portfolio"></i>
+                                </a>
                                 <a href="{% url 'portfolio:customer_delete' pk=customer.pk %}" 
                                     onclick="return confirm('Are you sure you want to delete?')">
                                     <i class="fas fa-trash" title="Delete"></i>
