@@ -19,31 +19,6 @@
                     <th scope="col">Shares</th>
                     <th scope="col">Initial Stock Price</th>
                     <th scope="col">Initial Stock Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stock in stock_list %}
-                <tr>
-                    <th scope="row">{{ stock.symbol }}</th>
-                    <td>{{ stock.name }}</td>
-                    <td>{{ stock.shares|intcomma }}</td>
-                    <td>${{ stock.purchase_price|intcomma }}</td>
-                    <td>{{ stock.purchase_value|intcomma }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <!-- Investment Information -->
-        <h2>Investment Information</h2>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Symbol</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Shares</th>
-                    <th scope="col">Initial Stock Price</th>
-                    <th scope="col">Initial Stock Value</th>
                     <th scope="col">Current Stock Price</th>
                     <th scope="col">Current Stock Value</th>
                     <th scope="col">Result</th>
@@ -58,12 +33,25 @@
                     <td>${{ stock.purchase_price|intcomma }}</td>
                     <td>{{ stock.initial_stock_value|intcomma }}</td>
                     <td>${{ stock.current_stock_price|intcomma }}</td>
-                    <td>{{ stock.current_stock_value|intcomma }}</td>
-                    <td>{{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma }}</td>
+                    <td>${{ stock.current_stock_value|intcomma }}</td>
+                    <td>${{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <!-- Summary Start -->
+        <h3>Summary</h3>
+        <dl class="row">
+            <dt class="col-sm-3">Total of Initial Stocks:</dt>
+            <dd class="col-sm-9">${{ sum_initial_stock_value }}</dd>
+
+            <dt class="col-sm-3">Total of Current Stocks:</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value }}</dd>
+
+            <dt class="col-sm-3">Results:</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value|sub:sum_initial_stock_value|intcomma }}</dd>
+        </dl>
+        <!-- Summary End -->
     </div>
 </div>
 

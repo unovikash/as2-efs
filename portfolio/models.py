@@ -57,6 +57,7 @@ class Stock(models.Model):
     shares = models.DecimalField (max_digits=10, decimal_places=1)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
     purchase_date = models.DateField(default=timezone.now, blank=True, null=True)
+    share_value = 0.00
 
     def created(self):
         self.recent_date = timezone.now()
@@ -71,13 +72,14 @@ class Stock(models.Model):
     def current_stock_price(self):
         symbol_f = str(self.symbol)
         main_api = 'https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols='
-        api_key = '&apikey= Y3JEDRMM767DLNMF'
+        api_key = '&apikey=Y3JEDRMM767DLNMF'
         url = main_api + symbol_f + api_key
+        print('>>API Call: ' + url)
         json_data = requests.get(url).json()
         open_price = float(json_data["Stock Quotes"][0]["2. price"])
-        share_value = open_price
-        return share_value
+        self.share_value = open_price
+        return self.share_value
 
     def current_stock_value(self):
-        return float(self.current_stock_price()) * float(self.shares)
+        return float(self.share_value) * float(self.shares)
 

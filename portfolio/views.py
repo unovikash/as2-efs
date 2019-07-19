@@ -198,8 +198,9 @@ def customer_portfolio(request,pk):
 
     # Loop through each stock and add the value to the total
     for stock in stock_list:
-        sum_current_stock_value += stock.current_stock_value()
         sum_initial_stock_value += stock.initial_stock_value()
+        current_stock_price = stock.current_stock_price() #to update current_stock_value
+        sum_current_stock_value += stock.current_stock_value()
 
     return render(request, 'portfolio/portfolio.html', {
         'customer': customer,
@@ -208,9 +209,9 @@ def customer_portfolio(request,pk):
         'stock_list': stock_list,
         'sum_acquired_value': sum_acquired_value,
         'sum_recent_value': sum_recent_value,
-        'sum_current_stocks_value': sum_current_stock_value,
-        'sum_of_initial_stock_value': sum_initial_stock_value,
-        })
+        'sum_current_stock_value': sum_current_stock_value,
+        'sum_initial_stock_value': sum_initial_stock_value,
+    })
 
 class CustomerList(APIView):
     def get(self,request):
