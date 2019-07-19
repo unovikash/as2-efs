@@ -189,9 +189,8 @@ def customer_portfolio(request,pk):
     customer_list = Customer.objects.filter(created_date__lte=timezone.now())
     investment_list =Investment.objects.filter(customer=pk)
     stock_list = Stock.objects.filter(customer=pk)
-    sum_recent_value = Investment.objects.filter(customer=pk).aggregate(Sum('recent_value'))
-    sum_acquired_value = Investment.objects.filter(customer=pk).aggregate(Sum('acquired_value'))
-    #overall_investment_results = sum_recent_value-sum_acquired_value
+    sum_recent_investment_value = Investment.objects.filter(customer=pk).aggregate(Sum('recent_value'))["recent_value__sum"]
+    sum_acquired_investment_value = Investment.objects.filter(customer=pk).aggregate(Sum('acquired_value'))["acquired_value__sum"]
     # Initialize the value of the stocks
     sum_current_stock_value = 0
     sum_initial_stock_value = 0
@@ -207,8 +206,8 @@ def customer_portfolio(request,pk):
         'customer_list': customer_list,
         'investment_list': investment_list,
         'stock_list': stock_list,
-        'sum_acquired_value': sum_acquired_value,
-        'sum_recent_value': sum_recent_value,
+        'sum_acquired_investment_value': sum_acquired_investment_value,
+        'sum_recent_investment_value': sum_recent_investment_value,
         'sum_current_stock_value': sum_current_stock_value,
         'sum_initial_stock_value': sum_initial_stock_value,
     })

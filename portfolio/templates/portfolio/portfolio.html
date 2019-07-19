@@ -18,6 +18,21 @@
             <dd class="col-sm-10">{{ customer.customer_number }}</dd>
         </dl>
 
+        <!-- Overall Portfolio Performance -->
+        <br/>
+        <h2 class="accent-color">Overall Portfolio Performance</h2>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-3">Portfolio Inital Investments</dt>
+            <dd class="col-sm-9">${{ sum_initial_stock_value|add:sum_acquired_investment_value|floatformat:2|intcomma }}</dd>
+
+            <dt class="col-sm-3">Portfolio Current Investments</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value|add:sum_recent_investment_value|floatformat:2|intcomma }}</dd>
+
+            <dt class="col-sm-3">Grand Total Result</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value|add:sum_recent_investment_value|sub:sum_initial_stock_value|sub:sum_acquired_investment_value|floatformat:2|intcomma }}</dd>
+        </dl>
+
         <!-- Stock Information -->
         <br/>
         <h2 class="accent-color">Stock Information</h2>
@@ -40,12 +55,12 @@
                 <tr>
                     <th scope="row">{{ stock.symbol }}</th>
                     <td>{{ stock.name }}</td>
-                    <td>{{ stock.shares|intcomma }}</td>
-                    <td>${{ stock.purchase_price|intcomma }}</td>
-                    <td>{{ stock.initial_stock_value|intcomma }}</td>
-                    <td>${{ stock.current_stock_price|intcomma }}</td>
-                    <td>${{ stock.current_stock_value|intcomma }}</td>
-                    <td>${{ stock.current_stock_value|sub:stock.initial_stock_value|intcomma }}</td>
+                    <td>{{ stock.shares }}</td>
+                    <td class="text-right">${{ stock.purchase_price|floatformat:2|intcomma }}</td>
+                    <td class="text-right">{{ stock.initial_stock_value|floatformat:2|intcomma }}</td>
+                    <td class="text-right">${{ stock.current_stock_price|floatformat:2|intcomma }}</td>
+                    <td class="text-right">${{ stock.current_stock_value|floatformat:2|intcomma }}</td>
+                    <td class="text-right">${{ stock.current_stock_value|sub:stock.initial_stock_value|floatformat:2|intcomma }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -54,13 +69,13 @@
         <h5>Summary</h5>
         <dl class="row">
             <dt class="col-sm-3">Total of Initial Stocks:</dt>
-            <dd class="col-sm-9">${{ sum_initial_stock_value }}</dd>
+            <dd class="col-sm-9">${{ sum_initial_stock_value|floatformat:2|intcomma }}</dd>
 
             <dt class="col-sm-3">Total of Current Stocks:</dt>
-            <dd class="col-sm-9">${{ sum_current_stock_value }}</dd>
+            <dd class="col-sm-9">${{ sum_current_stock_value|floatformat:2|intcomma }}</dd>
 
             <dt class="col-sm-3">Results:</dt>
-            <dd class="col-sm-9">${{ sum_current_stock_value|sub:sum_initial_stock_value|intcomma }}</dd>
+            <dd class="col-sm-9">${{ sum_current_stock_value|sub:sum_initial_stock_value|floatformat:2|intcomma }}</dd>
         </dl>
         <!-- Summary End -->
 
@@ -85,11 +100,11 @@
                 <tr>
                     <th scope="row">{{ investment.category }}</th>
                     <td>{{ investment.description }}</td>
-                    <td>${{ investment.acquired_value|intcomma }}</td>
+                    <td class="text-right">${{ investment.acquired_value|floatformat:2|intcomma }}</td>
                     <td>{{ investment.acquired_date }}</td>
-                    <td>${{ investment.recent_value|intcomma }}</td>
-                    <td>{{ investment.recent_date|intcomma }}</td>
-                    <td>${{ investment.results_by_investment }}</td>
+                    <td class="text-right">${{ investment.recent_value|floatformat:2|intcomma }}</td>
+                    <td>{{ investment.recent_date }}</td>
+                    <td class="text-right">${{ investment.results_by_investment|floatformat:2|intcomma }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -97,14 +112,14 @@
         <!-- Summary Start -->
         <h4>Summary</h4>
         <dl class="row">
-            <dt class="col-sm-3">Total of Initial Stocks:</dt>
-            <dd class="col-sm-9">${{ sum_initial_stock_value }}</dd>
+            <dt class="col-sm-3">Total of Initial Investments:</dt>
+            <dd class="col-sm-9">${{ sum_acquired_investment_value|floatformat:2|intcomma }}</dd>
 
-            <dt class="col-sm-3">Total of Current Stocks:</dt>
-            <dd class="col-sm-9">${{ sum_current_stock_value }}</dd>
+            <dt class="col-sm-3">Total of Current Investments:</dt>
+            <dd class="col-sm-9">${{ sum_recent_investment_value|floatformat:2|intcomma }}</dd>
 
             <dt class="col-sm-3">Results:</dt>
-            <dd class="col-sm-9">${{ sum_current_stock_value|sub:sum_initial_stock_value|intcomma }}</dd>
+            <dd class="col-sm-9">${{ sum_recent_investment_value|sub:sum_acquired_investment_value|floatformat:2|intcomma }}</dd>
         </dl>
         <!-- Summary End -->
     </div>
