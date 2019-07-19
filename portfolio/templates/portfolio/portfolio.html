@@ -6,11 +6,22 @@
 <div class="row justify-content-center">
     <div class="col-lg-10">
         <h1>Customer Portfolio</h1>
-        <p>Name: {{customer.name}}</p>
-        <p>Email: {{ customer.email }}</p>
+        <br/>
+        <dl class="row">
+            <dt class="col-sm-2">Name</dt>
+            <dd class="col-sm-10">{{ customer.name }}</dd>
+
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10">{{ customer.email }}</dd>
+
+            <dt class="col-sm-2">Customer Number</dt>
+            <dd class="col-sm-10">{{ customer.customer_number }}</dd>
+        </dl>
 
         <!-- Stock Information -->
-        <h2>Stock Information</h2>
+        <br/>
+        <h2 class="accent-color">Stock Information</h2>
+        <br/>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -40,7 +51,51 @@
             </tbody>
         </table>
         <!-- Summary Start -->
-        <h3>Summary</h3>
+        <h5>Summary</h5>
+        <dl class="row">
+            <dt class="col-sm-3">Total of Initial Stocks:</dt>
+            <dd class="col-sm-9">${{ sum_initial_stock_value }}</dd>
+
+            <dt class="col-sm-3">Total of Current Stocks:</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value }}</dd>
+
+            <dt class="col-sm-3">Results:</dt>
+            <dd class="col-sm-9">${{ sum_current_stock_value|sub:sum_initial_stock_value|intcomma }}</dd>
+        </dl>
+        <!-- Summary End -->
+
+        <!-- Investment Information -->
+        <br/>
+        <h2 class="accent-color">Investment Information</h2>
+        <br/>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Acquired Value</th>
+                    <th scope="col">Acquired Date</th>
+                    <th scope="col">Recent Value</th>
+                    <th scope="col">Recent Date</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for investment in investment_list %}
+                <tr>
+                    <th scope="row">{{ investment.category }}</th>
+                    <td>{{ investment.description }}</td>
+                    <td>${{ investment.acquired_value|intcomma }}</td>
+                    <td>{{ investment.acquired_date }}</td>
+                    <td>${{ investment.recent_value|intcomma }}</td>
+                    <td>{{ investment.recent_date|intcomma }}</td>
+                    <td>${{ investment.results_by_investment }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Summary Start -->
+        <h4>Summary</h4>
         <dl class="row">
             <dt class="col-sm-3">Total of Initial Stocks:</dt>
             <dd class="col-sm-9">${{ sum_initial_stock_value }}</dd>
