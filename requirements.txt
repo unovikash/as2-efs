@@ -6,5 +6,5 @@ pytz==2018.5
 whitenoise==4.0
 django-crispy-forms==1.7.2
 djangorestframework
-mathfilters
+django-mathfilters
 requests
