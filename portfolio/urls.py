@@ -9,6 +9,9 @@ app_name = 'portfolio'
 urlpatterns = [
     path('', views.home, name='home'),
     url(r'^home/$', views.home, name='home'),
+    path('signup/', views.signup, name='signup'),
+    url(r'^signup/$', views.signup, name='signup'),
+
     path('customer_list', views.customer_list, name='customer_list'),
     path('customer/create', views.customer_new, name='customer_new'),
     path('customer/<int:pk>/edit/', views.customer_edit, name='customer_edit'),
