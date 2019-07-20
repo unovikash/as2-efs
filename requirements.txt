@@ -7,3 +7,4 @@ whitenoise==4.0
 django-crispy-forms==1.7.2
 djangorestframework
 mathfilters
+requests
