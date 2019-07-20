@@ -1,1 +1,1 @@
-web: gunicorn efs.wsgi --log-file
+web: gunicorn efs.wsgi --log-file -
