@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Sum
@@ -19,6 +20,7 @@ def home(request):
 
 # Create your views here.
 
+# Registration Views
 def signup(request):
     if request.method=="POST":
         form = UserForm(request.POST)
@@ -35,6 +37,20 @@ def signup(request):
         form = UserForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+@login_required
+def change_password(request):
+    if request.method=='POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated')
+            return render(request, 'crm/home.html')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/change_password.html', {'form': form})
+
+# Portfolio Views
 @login_required
 def customer_list(request):
     customer_list = Customer.objects.filter(created_date__lte=timezone.now())
