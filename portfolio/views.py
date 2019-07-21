@@ -19,6 +19,7 @@ def home(request):
 
 # Create your views here.
 
+# Registration Views
 def signup(request):
     if request.method=="POST":
         form = UserForm(request.POST)
@@ -35,6 +36,7 @@ def signup(request):
         form = UserForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+# Portfolio Views
 @login_required
 def customer_list(request):
     customer_list = Customer.objects.filter(created_date__lte=timezone.now())
